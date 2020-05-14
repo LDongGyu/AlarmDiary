@@ -11,6 +11,8 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.alarmdiary.MainCategory.MainCategoryAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -35,6 +37,11 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
         drawerLayout = findViewById(R.id.drawer_layout)
+
+        var datas = listOf("All","Messenger","Social","Shopping","Game","Mail","ETC")
+        var mainCategoryAdapter: MainCategoryAdapter = MainCategoryAdapter(datas)
+        categoryRecylerView.layoutManager = LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false)
+        categoryRecylerView.adapter = mainCategoryAdapter
 //        drawerView = findViewById(R.id.drawer)
 //        val actionBarDrawerToggle:ActionBarDrawerToggle = ActionBarDrawerToggle(this,drawerLayout,toolbar,0,1)
 //        drawerLayout.addDrawerListener(actionBarDrawerToggle)
@@ -44,7 +51,6 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
             android.R.id.home->{
-                Toast.makeText(applicationContext,"Test",Toast.LENGTH_SHORT).show()
                 drawerLayout.openDrawer(GravityCompat.START)
             }
         }
