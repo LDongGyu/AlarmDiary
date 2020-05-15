@@ -16,11 +16,11 @@ import com.example.alarmdiary.MainCategory.MainCategoryAdapter
 import com.example.alarmdiary.MainPushList.MainPushListViewAdapter
 import com.example.alarmdiary.MainPushList.PushItem
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.drawer_layout.*
 
 class MainActivity : AppCompatActivity() {
 
     lateinit var drawerLayout:DrawerLayout
-    lateinit var drawerView: View
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,6 +59,11 @@ class MainActivity : AppCompatActivity() {
         pushList.layoutManager = LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false)
         pushList.adapter = mainPushListAdapter
 
+        analysis_txt.setOnClickListener {
+            val intent = Intent(this,ChartActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
