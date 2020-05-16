@@ -7,12 +7,16 @@ import android.view.MenuItem
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.alarmdiary.ChartRank.RankItem
+import com.example.alarmdiary.ChartRank.RankViewAdapter
 import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.utils.ColorTemplate
 import kotlinx.android.synthetic.main.activity_chart.*
+import kotlinx.android.synthetic.main.toolbar_layout.*
 
 class ChartActivity : AppCompatActivity() {
 
@@ -27,6 +31,8 @@ class ChartActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true) // 홈 버튼 활성화
         supportActionBar?.setHomeAsUpIndicator(R.drawable.menu_hamber) // 홈 버튼 이미지
         supportActionBar?.setDisplayShowTitleEnabled(false)
+
+        toolbar_title.text = "통계"
 
         drawerLayout = findViewById(R.id.drawer_layout)
 
@@ -44,6 +50,17 @@ class ChartActivity : AppCompatActivity() {
         var barData = BarData(label,dataSet)
         barChart.data = barData
         barChart.invalidate()
+
+        val rankTemp1 = RankItem(1,R.drawable.kakao,"이동규",20)
+        val rankTemp2 = RankItem(2,R.drawable.insta,"이현지",19)
+        val rankTemp3 = RankItem(3,R.drawable.insta,"죠르디",18)
+        val rankTemp4 = RankItem(4,R.drawable.kakao,"이의진",17)
+        val rankTemp5 = RankItem(5,R.drawable.kakao,"엄채현",6)
+
+        val rankDatas = listOf(rankTemp1,rankTemp2,rankTemp3,rankTemp4,rankTemp5)
+        var rankAdapter = RankViewAdapter(rankDatas)
+        rankList.layoutManager = LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false)
+        rankList.adapter = rankAdapter
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
