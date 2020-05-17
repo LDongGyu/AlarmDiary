@@ -1,5 +1,6 @@
 package com.example.alarmdiary
 
+import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -16,6 +17,7 @@ import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.utils.ColorTemplate
 import kotlinx.android.synthetic.main.activity_chart.*
+import kotlinx.android.synthetic.main.drawer_layout.*
 import kotlinx.android.synthetic.main.toolbar_layout.*
 
 class ChartActivity : AppCompatActivity() {
@@ -61,6 +63,12 @@ class ChartActivity : AppCompatActivity() {
         var rankAdapter = RankViewAdapter(rankDatas)
         rankList.layoutManager = LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false)
         rankList.adapter = rankAdapter
+
+        main_txt.setOnClickListener {
+            val intent = Intent(this,MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
