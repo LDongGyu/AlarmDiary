@@ -20,13 +20,37 @@
             android:id="@+id/toolbarLayout"
             layout="@layout/toolbar_layout"
             />
+
+        <TextView
+            android:id="@+id/dateTxt"
+            android:textSize="16dp"
+            android:textColor="#000000"
+            android:text="2020-05-14"
+            android:layout_marginTop="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/toolbarLayout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <ImageView
+            android:src="@drawable/calender"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="10dp"
+            app:layout_constraintStart_toEndOf="@+id/dateTxt"
+            app:layout_constraintTop_toBottomOf="@+id/toolbarLayout"/>
+
         <com.github.mikephil.charting.charts.BarChart
             android:id="@+id/barChart"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/toolbarLayout"/>
+            app:layout_constraintTop_toBottomOf="@id/dateTxt"/>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rankList"
             android:layout_width="match_parent"
