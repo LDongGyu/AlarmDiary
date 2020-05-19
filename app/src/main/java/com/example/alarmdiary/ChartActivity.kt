@@ -1,10 +1,11 @@
 package com.example.alarmdiary
 
+import android.app.DatePickerDialog
 import android.content.Intent
-import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.ImageView
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -14,11 +15,13 @@ import com.example.alarmdiary.ChartRank.RankViewAdapter
 import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
-import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.utils.ColorTemplate
 import kotlinx.android.synthetic.main.activity_chart.*
+import kotlinx.android.synthetic.main.activity_chart.dateTxt
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.drawer_layout.*
 import kotlinx.android.synthetic.main.toolbar_layout.*
+import java.util.*
 
 class ChartActivity : AppCompatActivity() {
 
@@ -68,6 +71,21 @@ class ChartActivity : AppCompatActivity() {
             val intent = Intent(this,MainActivity::class.java)
             startActivity(intent)
             finish()
+        }
+
+        val calender = findViewById(R.id.calenderImg) as ImageView
+        calender.setOnClickListener {
+            var c = Calendar.getInstance()
+            var year = c.get(Calendar.YEAR)
+            var mon = c.get(Calendar.MONTH)
+            var day = c.get(Calendar.DAY_OF_MONTH)
+
+            var dateSetListenr = DatePickerDialog.OnDateSetListener { datePicker, i, i2, i3 ->
+                dateTxt.text = "${i}-${i2+1}-${i3}"
+            }
+
+            var builder = DatePickerDialog(this, R.style.DialogTheme, dateSetListenr, year, mon, day)
+            builder.show()
         }
     }
 

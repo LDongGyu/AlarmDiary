@@ -7,8 +7,9 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:statusBarColor">@color/colorPrimary</item>
-        
+
         <item name="android:actionOverflowButtonStyle">@style/AppTheme.OverFlow</item>
+
         <!--        <item name ="android:windowDrawsSystemBarBackgrounds">true</item> 상태바까지 view 보여줌-->
     </style>
 
@@ -16,5 +17,10 @@
     <style name="AppTheme.OverFlow" parent="Widget.AppCompat.ActionButton.Overflow">
         <item name="android:tint">#FFFFFF</item>
     </style>
+
+    <style name="DialogTheme" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorAccent">@color/colorPrimary</item>
+    </style>
+
 
 </resources>

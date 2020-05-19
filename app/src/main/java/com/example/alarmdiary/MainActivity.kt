@@ -1,5 +1,6 @@
 package com.example.alarmdiary
 
+import android.app.DatePickerDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -18,6 +19,7 @@ import com.example.alarmdiary.MainPushList.MainPushListViewAdapter
 import com.example.alarmdiary.MainPushList.PushItem
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.drawer_layout.*
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -64,6 +66,20 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this,ChartActivity::class.java)
             startActivity(intent)
             finish()
+        }
+
+        calenderImg.setOnClickListener {
+            var c = Calendar.getInstance()
+            var year = c.get(Calendar.YEAR)
+            var mon = c.get(Calendar.MONTH)
+            var day = c.get(Calendar.DAY_OF_MONTH)
+
+            var dateSetListenr = DatePickerDialog.OnDateSetListener { datePicker, i, i2, i3 ->
+                dateTxt.text = "${i}-${i2+1}-${i3}"
+            }
+
+            var builder = DatePickerDialog(this,R.style.DialogTheme, dateSetListenr, year, mon, day)
+            builder.show()
         }
     }
 
