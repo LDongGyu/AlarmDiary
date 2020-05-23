@@ -33,7 +33,7 @@ class NotificationListener : NotificationListenerService() {
         }
 
         db?.insert(NotificationDbHelper.TABLE_NAME,null,values)
-        
+
         Log.d("PushLog","onNotificationPosted ~ " +
                 " packageName: " + sbn?.packageName +
                 " id: " + sbn?.id +
