@@ -17,9 +17,11 @@ class NotificationListener : NotificationListenerService() {
         val title = extras?.getString(Notification.EXTRA_TITLE)
         val text = extras?.getCharSequence(Notification.EXTRA_TEXT)
         val subText = extras?.getCharSequence(Notification.EXTRA_SUB_TEXT)
-        val smallIcon = notification?.smallIcon
-        val largeIcon = notification?.getLargeIcon()
+        var smallIcon = notification?.icon
 
+        if(smallIcon == null){
+            smallIcon = R.drawable.logo_color
+        }
 
         val dbHelper = NotificationDbHelper(applicationContext)
         val db = dbHelper.writableDatabase
@@ -29,11 +31,11 @@ class NotificationListener : NotificationListenerService() {
             put(NotificationDbHelper.COLUMN_NAME_CONTEXT,text.toString())
             put(NotificationDbHelper.COLUMN_NAME_TIME,sbn?.postTime)
             put(NotificationDbHelper.COLUMN_NAME_APP,sbn?.packageName)
-            put(NotificationDbHelper.COLUMN_NAME_ICON,smallIcon.toString())
+            put(NotificationDbHelper.COLUMN_NAME_ICON,smallIcon)
         }
 
         db?.insert(NotificationDbHelper.TABLE_NAME,null,values)
-
+        applicationContext
         Log.d("PushLog","onNotificationPosted ~ " +
                 " packageName: " + sbn?.packageName +
                 " id: " + sbn?.id +
@@ -41,7 +43,5 @@ class NotificationListener : NotificationListenerService() {
                 " title: " + title +
                 " text : " + text +
                 " subText: " + subText)
-
-
     }
 }

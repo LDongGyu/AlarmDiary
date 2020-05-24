@@ -1,8 +1,11 @@
 package com.example.alarmdiary.MainPushList
 
+import com.example.alarmdiary.R
+
 data class PushItem (
-    var img: Int,
-    var name: String,
-    var content: String,
-    var time: String
+    var img: Int = R.drawable.logo_color,
+    var name: String = "이동규",
+    var content: String = "테스트",
+    var time: String = "00:00",
+    var appName : String = "AlarmDiary"
 )

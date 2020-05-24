@@ -1,5 +1,6 @@
 package com.example.alarmdiary.MainPushList
 
+import android.content.res.Resources
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.ShapeDrawable
 import android.graphics.drawable.shapes.OvalShape
@@ -24,4 +25,3 @@ class MainPushListViewHolder(item: View) : RecyclerView.ViewHolder(item){
         pushTimeTxt.text = data.time
     }
 }
-
