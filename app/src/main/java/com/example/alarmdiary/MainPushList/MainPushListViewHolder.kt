@@ -2,6 +2,7 @@ package com.example.alarmdiary.MainPushList
 
 import android.content.res.Resources
 import android.graphics.drawable.Drawable
+import android.graphics.drawable.Icon
 import android.graphics.drawable.ShapeDrawable
 import android.graphics.drawable.shapes.OvalShape
 import android.view.View
@@ -19,6 +20,8 @@ class MainPushListViewHolder(item: View) : RecyclerView.ViewHolder(item){
     val pushTimeTxt : TextView = item.findViewById(R.id.timeTxt)
 
     fun bind(data: PushItem){
+//        data.img
+//        pushListIconImg.setImageIcon(data.img)
         pushListIconImg.setImageResource(data.img)
         pushNameTxt.text = data.name
         pushContentTxt.text = data.content

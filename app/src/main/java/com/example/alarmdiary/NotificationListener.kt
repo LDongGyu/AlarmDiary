@@ -22,13 +22,14 @@ class NotificationListener : NotificationListenerService() {
         var smallIcon = notification?.smallIcon
         var timeStemp = sbn?.postTime ?: 0
 
-        var timeFormat = SimpleDateFormat("HH:MM")
+        var timeFormat = SimpleDateFormat("HH:mm")
         var date = Date(timeStemp)
         var time = timeFormat.format(date)
 
-        if(smallIcon == null){
-            smallIcon = R.drawable.logo_color
-        }
+//        if(smallIcon == null){
+//            smallIcon = R.drawable.logo_color
+//        }
+        Log.d("iconLog",smallIcon.toString())
 
         val dbHelper = NotificationDbHelper(applicationContext)
         val db = dbHelper.writableDatabase
@@ -38,7 +39,7 @@ class NotificationListener : NotificationListenerService() {
             put(NotificationDbHelper.COLUMN_NAME_CONTEXT,text.toString())
             put(NotificationDbHelper.COLUMN_NAME_TIME,time)
             put(NotificationDbHelper.COLUMN_NAME_APP,sbn?.packageName)
-            put(NotificationDbHelper.COLUMN_NAME_ICON,smallIcon)
+            put(NotificationDbHelper.COLUMN_NAME_ICON,smallIcon.toString())
         }
 
         db?.insert(NotificationDbHelper.TABLE_NAME,null,values)
