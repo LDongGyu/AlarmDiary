@@ -6,6 +6,8 @@ import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
 import android.util.Log
 import com.example.alarmdiary.DataBase.NotificationDbHelper
+import java.text.SimpleDateFormat
+import java.util.*
 
 class NotificationListener : NotificationListenerService() {
 
@@ -17,7 +19,12 @@ class NotificationListener : NotificationListenerService() {
         val title = extras?.getString(Notification.EXTRA_TITLE)
         val text = extras?.getCharSequence(Notification.EXTRA_TEXT)
         val subText = extras?.getCharSequence(Notification.EXTRA_SUB_TEXT)
-        var smallIcon = notification?.icon
+        var smallIcon = notification?.smallIcon
+        var timeStemp = sbn?.postTime ?: 0
+
+        var timeFormat = SimpleDateFormat("HH:MM")
+        var date = Date(timeStemp)
+        var time = timeFormat.format(date)
 
         if(smallIcon == null){
             smallIcon = R.drawable.logo_color
@@ -29,7 +36,7 @@ class NotificationListener : NotificationListenerService() {
         val values = ContentValues().apply {
             put(NotificationDbHelper.COLUMN_NAME_FROM,title)
             put(NotificationDbHelper.COLUMN_NAME_CONTEXT,text.toString())
-            put(NotificationDbHelper.COLUMN_NAME_TIME,sbn?.postTime)
+            put(NotificationDbHelper.COLUMN_NAME_TIME,time)
             put(NotificationDbHelper.COLUMN_NAME_APP,sbn?.packageName)
             put(NotificationDbHelper.COLUMN_NAME_ICON,smallIcon)
         }

@@ -53,7 +53,8 @@ class NotificationDbHelper (context: Context) : SQLiteOpenHelper(context, DATABA
                 pushItem.name = cursor.getString(cursor.getColumnIndex(COLUMN_NAME_FROM)) ?: "test"
                 pushItem.content = cursor.getString(cursor.getColumnIndex(COLUMN_NAME_CONTEXT)) ?: "테스트 중"
                 pushItem.time = cursor.getString(cursor.getColumnIndex(COLUMN_NAME_TIME)) ?: "00:00"
-                pushItem.img = cursor.getInt(cursor.getColumnIndex(COLUMN_NAME_ICON)) ?: R.drawable.logo_color
+                pushItem.img = R.drawable.logo_color
+//                pushItem.img = cursor.getInt(cursor.getColumnIndex(COLUMN_NAME_ICON)) ?: R.drawable.logo_color
                 pushItem.appName = cursor.getString(cursor.getColumnIndex(COLUMN_NAME_APP)) ?: "AlarmDiary"
                 notiList.add(pushItem)
                 cursor.moveToNext()

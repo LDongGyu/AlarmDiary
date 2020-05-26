@@ -53,16 +53,7 @@ class MainActivity : AppCompatActivity() {
 
         var db = NotificationDbHelper(this)
         var pushItem = db.getAllData()
-//        var temp1 = PushItem(R.drawable.kakao,"이동규","테스트 중 입니다.","12:52")
-//        var temp2 = PushItem(R.drawable.kakao,"유인근", "카톡하고 있습니다.","12:31")
-//        var temp3 = PushItem(R.drawable.insta,"죠르디","어서 출시해주세요!","12:22")
-//        var temp4 = PushItem(R.drawable.kakao,"박승완","멋있다 동규야","11:55")
-//        var temp5 = PushItem(R.drawable.insta,"이현지","동규야 보고싶어","10:48")
-//        var temp6 = PushItem(R.drawable.kakao,"이의진","우리 언제 만날까? ㅎㅎ","10:37")
-//        var temp7 = PushItem(R.drawable.insta,"이소혜","자니...?","03:21")
-//
-//
-//        val pushDatas = listOf(temp1,temp2,temp3,temp4,temp5,temp6,temp7)
+
         var mainPushListAdapter =  MainPushListViewAdapter(pushItem)
         pushList.layoutManager = LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false)
         pushList.adapter = mainPushListAdapter
