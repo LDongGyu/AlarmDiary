@@ -2,10 +2,16 @@ package com.example.alarmdiary
 
 import android.app.Notification
 import android.content.ContentValues
+import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Icon
+import android.os.Build
 import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
 import android.util.Log
+import android.widget.Toast
 import com.example.alarmdiary.DataBase.NotificationDbHelper
+import java.io.ByteArrayOutputStream
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -19,27 +25,36 @@ class NotificationListener : NotificationListenerService() {
         val title = extras?.getString(Notification.EXTRA_TITLE)
         val text = extras?.getCharSequence(Notification.EXTRA_TEXT)
         val subText = extras?.getCharSequence(Notification.EXTRA_SUB_TEXT)
-        var smallIcon = notification?.smallIcon
+        var icon = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P && notification != null) {
+            notification?.smallIcon.loadDrawable(applicationContext)
+        } else {
+            TODO("VERSION.SDK_INT < P")
+            R.drawable.logo_color
+        }
+
+
+
         var timeStemp = sbn?.postTime ?: 0
 
         var timeFormat = SimpleDateFormat("HH:mm")
         var date = Date(timeStemp)
         var time = timeFormat.format(date)
 
-//        if(smallIcon == null){
-//            smallIcon = R.drawable.logo_color
-//        }
-        Log.d("iconLog",smallIcon.toString())
-
         val dbHelper = NotificationDbHelper(applicationContext)
         val db = dbHelper.writableDatabase
+
+        var bitmapDrawable = icon as BitmapDrawable
+        var bitmap = bitmapDrawable.bitmap
+        var stream = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.JPEG,100,stream)
+        var bitmapdata = stream.toByteArray()
 
         val values = ContentValues().apply {
             put(NotificationDbHelper.COLUMN_NAME_FROM,title)
             put(NotificationDbHelper.COLUMN_NAME_CONTEXT,text.toString())
             put(NotificationDbHelper.COLUMN_NAME_TIME,time)
             put(NotificationDbHelper.COLUMN_NAME_APP,sbn?.packageName)
-            put(NotificationDbHelper.COLUMN_NAME_ICON,smallIcon.toString())
+            put(NotificationDbHelper.COLUMN_NAME_ICON,bitmapdata)
         }
 
         db?.insert(NotificationDbHelper.TABLE_NAME,null,values)

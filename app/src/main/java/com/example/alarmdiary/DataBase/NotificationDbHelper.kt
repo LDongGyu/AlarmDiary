@@ -1,14 +1,13 @@
 package com.example.alarmdiary.DataBase
 
 import android.content.Context
-import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import android.os.Parcel
-import android.os.Parcelable
+import android.graphics.BitmapFactory
+import android.graphics.drawable.Icon
 import android.provider.BaseColumns
 import com.example.alarmdiary.MainPushList.PushItem
-import com.example.alarmdiary.R
+import java.io.ByteArrayInputStream
 
 class NotificationDbHelper (context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
     companion object{
@@ -30,7 +29,7 @@ class NotificationDbHelper (context: Context) : SQLiteOpenHelper(context, DATABA
                 "${COLUMN_NAME_CONTEXT} TEXT," +
                 "${COLUMN_NAME_TIME} TEXT," +
                 "${COLUMN_NAME_APP} TEXT," +
-                "${COLUMN_NAME_ICON} INTEGER)"
+                "${COLUMN_NAME_ICON} BLOB)"
         p0!!.execSQL(SQL_CREATE_ENTRIES)
     }
 
@@ -53,8 +52,10 @@ class NotificationDbHelper (context: Context) : SQLiteOpenHelper(context, DATABA
                 pushItem.name = cursor.getString(cursor.getColumnIndex(COLUMN_NAME_FROM)) ?: "test"
                 pushItem.content = cursor.getString(cursor.getColumnIndex(COLUMN_NAME_CONTEXT)) ?: "테스트 중"
                 pushItem.time = cursor.getString(cursor.getColumnIndex(COLUMN_NAME_TIME)) ?: "00:00"
-                pushItem.img = R.drawable.logo_color
-//                pushItem.img = cursor.getInt(cursor.getColumnIndex(COLUMN_NAME_ICON)) ?: R.drawable.logo_color
+                var bitmap = cursor.getBlob(cursor.getColumnIndex(COLUMN_NAME_ICON))
+                var inputStream = ByteArrayInputStream(bitmap)
+                var bitmapImg = BitmapFactory.decodeStream(inputStream)
+                pushItem.img = Icon.createWithBitmap(bitmapImg)
                 pushItem.appName = cursor.getString(cursor.getColumnIndex(COLUMN_NAME_APP)) ?: "AlarmDiary"
                 notiList.add(pushItem)
                 cursor.moveToNext()
