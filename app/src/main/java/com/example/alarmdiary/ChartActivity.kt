@@ -49,7 +49,7 @@ class ChartActivity : AppCompatActivity() {
 
         var data = listOf<BarEntry>(temp1,temp2,temp3,temp4,temp5)
 
-        var label = listOf("이동규","이의진","이현지","엄채현","권다정")
+        var label = listOf("이동규","죠르디","라이언","테스트","안드로")
         var dataSet = BarDataSet(data,"Label")
         dataSet.setColors(ColorTemplate.COLORFUL_COLORS)
         var barData = BarData(label,dataSet)
@@ -57,10 +57,10 @@ class ChartActivity : AppCompatActivity() {
         barChart.invalidate()
 
         val rankTemp1 = RankItem(1,R.drawable.kakao,"이동규",20)
-        val rankTemp2 = RankItem(2,R.drawable.insta,"이현지",19)
-        val rankTemp3 = RankItem(3,R.drawable.insta,"죠르디",18)
-        val rankTemp4 = RankItem(4,R.drawable.kakao,"이의진",17)
-        val rankTemp5 = RankItem(5,R.drawable.kakao,"엄채현",6)
+        val rankTemp2 = RankItem(2,R.drawable.insta,"죠르디",19)
+        val rankTemp3 = RankItem(3,R.drawable.insta,"라이언",18)
+        val rankTemp4 = RankItem(4,R.drawable.kakao,"테스트",17)
+        val rankTemp5 = RankItem(5,R.drawable.kakao,"안드로",6)
 
         val rankDatas = listOf(rankTemp1,rankTemp2,rankTemp3,rankTemp4,rankTemp5)
         var rankAdapter = RankViewAdapter(rankDatas)

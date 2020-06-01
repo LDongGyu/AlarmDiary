@@ -65,6 +65,33 @@ class NotificationDbHelper (context: Context) : SQLiteOpenHelper(context, DATABA
         db.close()
         return notiList
     }
+
+    fun getRankData(): List<PushItem>{
+        val rankList = ArrayList<PushItem>()
+        val selectQueryHandler = "SELECT $COLUMN_NAME_FROM, COUNT($COLUMN_NAME_CONTEXT) FROM $TABLE_NAME GROUP BY $COLUMN_NAME_FROM ORDER BY COUNT($COLUMN_NAME_CONTEXT)"
+        val db = this.writableDatabase
+        val cursor = db.rawQuery(selectQueryHandler,null)
+
+        if(cursor.moveToFirst()) {
+            while (!cursor.isAfterLast()) {
+                val pushItem = PushItem()
+
+                pushItem.name = cursor.getString(cursor.getColumnIndex(COLUMN_NAME_FROM)) ?: "test"
+                pushItem.content = cursor.getString(cursor.getColumnIndex(COLUMN_NAME_CONTEXT)) ?: "테스트 중"
+                pushItem.time = cursor.getString(cursor.getColumnIndex(COLUMN_NAME_TIME)) ?: "00:00"
+                var bitmap = cursor.getBlob(cursor.getColumnIndex(COLUMN_NAME_ICON))
+                var inputStream = ByteArrayInputStream(bitmap)
+                var bitmapImg = BitmapFactory.decodeStream(inputStream)
+                pushItem.img = Icon.createWithBitmap(bitmapImg)
+                pushItem.appName = cursor.getString(cursor.getColumnIndex(COLUMN_NAME_APP)) ?: "AlarmDiary"
+                rankList.add(pushItem)
+                cursor.moveToNext()
+            }
+            cursor.close()
+        }
+        db.close()
+        return rankList
+    }
 }
 
 
