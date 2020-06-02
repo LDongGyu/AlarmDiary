@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper
 import android.graphics.BitmapFactory
 import android.graphics.drawable.Icon
 import android.provider.BaseColumns
+import com.example.alarmdiary.ChartRank.RankItem
 import com.example.alarmdiary.MainPushList.PushItem
 import java.io.ByteArrayInputStream
 
@@ -66,25 +67,26 @@ class NotificationDbHelper (context: Context) : SQLiteOpenHelper(context, DATABA
         return notiList
     }
 
-    fun getRankData(): List<PushItem>{
-        val rankList = ArrayList<PushItem>()
-        val selectQueryHandler = "SELECT $COLUMN_NAME_FROM, COUNT($COLUMN_NAME_CONTEXT) FROM $TABLE_NAME GROUP BY $COLUMN_NAME_FROM ORDER BY COUNT($COLUMN_NAME_CONTEXT)"
+    fun getRankData(): List<RankItem>{
+        val rankList = ArrayList<RankItem>()
+        val selectQueryHandler = "SELECT $COLUMN_NAME_FROM, COUNT($COLUMN_NAME_CONTEXT) as Count FROM $TABLE_NAME GROUP BY $COLUMN_NAME_FROM ORDER BY COUNT($COLUMN_NAME_CONTEXT)"
         val db = this.writableDatabase
         val cursor = db.rawQuery(selectQueryHandler,null)
 
         if(cursor.moveToFirst()) {
+            var rank = 1
             while (!cursor.isAfterLast()) {
-                val pushItem = PushItem()
+                val rankItem = RankItem()
 
-                pushItem.name = cursor.getString(cursor.getColumnIndex(COLUMN_NAME_FROM)) ?: "test"
-                pushItem.content = cursor.getString(cursor.getColumnIndex(COLUMN_NAME_CONTEXT)) ?: "테스트 중"
-                pushItem.time = cursor.getString(cursor.getColumnIndex(COLUMN_NAME_TIME)) ?: "00:00"
+                rankItem.name = cursor.getString(cursor.getColumnIndex(COLUMN_NAME_FROM)) ?: "test"
+                rankItem.count = cursor.getInt(cursor.getColumnIndex("Count")) ?: 0
                 var bitmap = cursor.getBlob(cursor.getColumnIndex(COLUMN_NAME_ICON))
                 var inputStream = ByteArrayInputStream(bitmap)
                 var bitmapImg = BitmapFactory.decodeStream(inputStream)
-                pushItem.img = Icon.createWithBitmap(bitmapImg)
-                pushItem.appName = cursor.getString(cursor.getColumnIndex(COLUMN_NAME_APP)) ?: "AlarmDiary"
-                rankList.add(pushItem)
+                rankItem.img = Icon.createWithBitmap(bitmapImg)
+                rankItem.rank = rank
+                rank++
+                rankList.add(rankItem)
                 cursor.moveToNext()
             }
             cursor.close()
