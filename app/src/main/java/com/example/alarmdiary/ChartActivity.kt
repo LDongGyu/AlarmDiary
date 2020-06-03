@@ -12,6 +12,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.alarmdiary.ChartRank.RankItem
 import com.example.alarmdiary.ChartRank.RankViewAdapter
+import com.example.alarmdiary.DataBase.NotificationDbHelper
 import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
@@ -56,14 +57,10 @@ class ChartActivity : AppCompatActivity() {
         barChart.data = barData
         barChart.invalidate()
 
-        val rankTemp1 = RankItem(1,R.drawable.kakao,"이동규",20)
-        val rankTemp2 = RankItem(2,R.drawable.insta,"죠르디",19)
-        val rankTemp3 = RankItem(3,R.drawable.insta,"라이언",18)
-        val rankTemp4 = RankItem(4,R.drawable.kakao,"테스트",17)
-        val rankTemp5 = RankItem(5,R.drawable.kakao,"안드로",6)
+        var db = NotificationDbHelper(this)
+        var rankItem = db.getRankData()
 
-        val rankDatas = listOf(rankTemp1,rankTemp2,rankTemp3,rankTemp4,rankTemp5)
-        var rankAdapter = RankViewAdapter(rankDatas)
+        var rankAdapter = RankViewAdapter(rankItem)
         rankList.layoutManager = LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false)
         rankList.adapter = rankAdapter
 
