@@ -42,27 +42,27 @@ class ChartActivity : AppCompatActivity() {
 
         drawerLayout = findViewById(R.id.drawer_layout)
 
-        var temp1 = BarEntry(20F,0)
-        var temp2 = BarEntry(12F,1)
-        var temp3 = BarEntry(5F,2)
-        var temp4 = BarEntry(18F,3)
-        var temp5 = BarEntry(10F,4)
-
-        var data = listOf<BarEntry>(temp1,temp2,temp3,temp4,temp5)
-
-        var label = listOf("이동규","죠르디","라이언","테스트","안드로")
-        var dataSet = BarDataSet(data,"Label")
-        dataSet.setColors(ColorTemplate.COLORFUL_COLORS)
-        var barData = BarData(label,dataSet)
-        barChart.data = barData
-        barChart.invalidate()
-
         var db = NotificationDbHelper(this)
         var rankItem = db.getRankData()
 
         var rankAdapter = RankViewAdapter(rankItem)
         rankList.layoutManager = LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false)
         rankList.adapter = rankAdapter
+
+        var temp1 = BarEntry(rankItem[0].count as Float,0)
+        var temp2 = BarEntry(rankItem[1].count as Float,1)
+        var temp3 = BarEntry(rankItem[2].count as Float,2)
+        var temp4 = BarEntry(rankItem[3].count as Float,3)
+        var temp5 = BarEntry(rankItem[4].count as Float,4)
+
+        var data = listOf<BarEntry>(temp1,temp2,temp3,temp4,temp5)
+
+        var label = listOf(rankItem[0].name,rankItem[1].name,rankItem[2].name,rankItem[3].name,rankItem[4].name)
+        var dataSet = BarDataSet(data,"Label")
+        dataSet.setColors(ColorTemplate.COLORFUL_COLORS)
+        var barData = BarData(label,dataSet)
+        barChart.data = barData
+        barChart.invalidate()
 
         main_txt.setOnClickListener {
             val intent = Intent(this,MainActivity::class.java)
