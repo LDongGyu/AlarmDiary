@@ -14,7 +14,7 @@ class RankViewHolder(item: View) : RecyclerView.ViewHolder(item){
 
     fun bind(data: RankItem){
         rankText.text = data.rank.toString()+"등"
-        rankIconImg.setImageResource(data.Img)
+        rankIconImg.setImageIcon(data.img)
         nameText.text = data.name
         countText.text = data.count.toString()+"건"
     }

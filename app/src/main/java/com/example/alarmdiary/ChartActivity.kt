@@ -49,15 +49,14 @@ class ChartActivity : AppCompatActivity() {
         rankList.layoutManager = LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false)
         rankList.adapter = rankAdapter
 
-        var temp1 = BarEntry(rankItem[0].count as Float,0)
-        var temp2 = BarEntry(rankItem[1].count as Float,1)
-        var temp3 = BarEntry(rankItem[2].count as Float,2)
-        var temp4 = BarEntry(rankItem[3].count as Float,3)
-        var temp5 = BarEntry(rankItem[4].count as Float,4)
+        var data = mutableListOf<BarEntry>()
+        var label = mutableListOf<String>()
+        for(i in 0..rankItem.size-1){
+            var temp = BarEntry(rankItem[i].count.toFloat(),i)
+            data.add(i,temp)
+            label.add(i,rankItem[i].name)
+        }
 
-        var data = listOf<BarEntry>(temp1,temp2,temp3,temp4,temp5)
-
-        var label = listOf(rankItem[0].name,rankItem[1].name,rankItem[2].name,rankItem[3].name,rankItem[4].name)
         var dataSet = BarDataSet(data,"Label")
         dataSet.setColors(ColorTemplate.COLORFUL_COLORS)
         var barData = BarData(label,dataSet)
