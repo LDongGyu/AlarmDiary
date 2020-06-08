@@ -4,6 +4,8 @@ import android.app.Notification
 import android.content.ContentValues
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
+import android.graphics.drawable.DrawableWrapper
 import android.graphics.drawable.Icon
 import android.os.Build
 import android.service.notification.NotificationListenerService
@@ -26,13 +28,19 @@ class NotificationListener : NotificationListenerService() {
         val text = extras?.getCharSequence(Notification.EXTRA_TEXT)
         val subText = extras?.getCharSequence(Notification.EXTRA_SUB_TEXT)
         var icon = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P && notification != null) {
-            notification?.smallIcon.loadDrawable(applicationContext)
+            if(notification?.getLargeIcon() != null){
+                notification?.getLargeIcon().loadDrawable(applicationContext)
+            }
+            else if(notification?.smallIcon != null){
+                notification?.smallIcon.loadDrawable(applicationContext)
+            }
+            else{
+                Icon.createWithResource(applicationContext,R.drawable.logo_color).loadDrawable(applicationContext)
+            }
         } else {
             TODO("VERSION.SDK_INT < P")
-            R.drawable.logo_color
+            Icon.createWithResource(applicationContext,R.drawable.logo_color).loadDrawable(applicationContext)
         }
-
-
 
         var timeStemp = sbn?.postTime ?: 0
 
@@ -42,6 +50,7 @@ class NotificationListener : NotificationListenerService() {
 
         val dbHelper = NotificationDbHelper(applicationContext)
         val db = dbHelper.writableDatabase
+
 
         var bitmapDrawable = icon as BitmapDrawable
         var bitmap = bitmapDrawable.bitmap
