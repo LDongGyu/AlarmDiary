@@ -16,8 +16,9 @@ class NotificationDbHelper (context: Context) : SQLiteOpenHelper(context, DATABA
         const val DATABASE_NAME = "Notification.db"
 
         const val TABLE_NAME = "notification"
-        const val COLUMN_NAME_FROM = "Who"
+        const val COLUMN_NAME_FROM = "WHO"
         const val COLUMN_NAME_CONTEXT = "CONTEXT"
+        const val COLUMN_NAME_DATE = "DATE"
         const val COLUMN_NAME_TIME = "TIME"
         const val COLUMN_NAME_APP = "APP"
         const val COLUMN_NAME_ICON = "ICON"
@@ -28,6 +29,7 @@ class NotificationDbHelper (context: Context) : SQLiteOpenHelper(context, DATABA
                 "${BaseColumns._ID} INTEGER PRIMARY KEY," +
                 "${COLUMN_NAME_FROM} TEXT," +
                 "${COLUMN_NAME_CONTEXT} TEXT," +
+                "${COLUMN_NAME_DATE} TEXT," +
                 "${COLUMN_NAME_TIME} TEXT," +
                 "${COLUMN_NAME_APP} TEXT," +
                 "${COLUMN_NAME_ICON} BLOB)"
@@ -40,9 +42,9 @@ class NotificationDbHelper (context: Context) : SQLiteOpenHelper(context, DATABA
         onCreate(p0)
     }
 
-    public fun getAllData(): List<PushItem> {
+    public fun getPushData(date: String): List<PushItem> {
         val notiList = ArrayList<PushItem>()
-        val selectQueryHandler = "SELECT * FROM $TABLE_NAME"
+        val selectQueryHandler = "SELECT * FROM ${TABLE_NAME} WHERE ${COLUMN_NAME_DATE} = ${date}"
         val db = this.writableDatabase
         val cursor = db.rawQuery(selectQueryHandler,null)
 
@@ -52,6 +54,7 @@ class NotificationDbHelper (context: Context) : SQLiteOpenHelper(context, DATABA
 
                 pushItem.name = cursor.getString(cursor.getColumnIndex(COLUMN_NAME_FROM)) ?: "test"
                 pushItem.content = cursor.getString(cursor.getColumnIndex(COLUMN_NAME_CONTEXT)) ?: "테스트 중"
+                pushItem.date = cursor.getString(cursor.getColumnIndex(COLUMN_NAME_DATE)) ?: "20200610"
                 pushItem.time = cursor.getString(cursor.getColumnIndex(COLUMN_NAME_TIME)) ?: "00:00"
                 var bitmap = cursor.getBlob(cursor.getColumnIndex(COLUMN_NAME_ICON))
                 var inputStream = ByteArrayInputStream(bitmap)

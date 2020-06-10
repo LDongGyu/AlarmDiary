@@ -22,6 +22,7 @@ import com.example.alarmdiary.MainPushList.MainPushListViewAdapter
 import com.example.alarmdiary.MainPushList.PushItem
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.drawer_layout.*
+import java.text.SimpleDateFormat
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
@@ -52,7 +53,13 @@ class MainActivity : AppCompatActivity() {
         categoryRecylerView.adapter = mainCategoryAdapter
 
         var db = NotificationDbHelper(this)
-        var pushItem = db.getAllData()
+
+        var timeFormat = SimpleDateFormat("YYYYMMDD HH:mm")
+        var date = Date()
+        var dateStr = timeFormat.format(date)
+        var dateTime = dateStr.split(" ")
+
+        var pushItem = db.getPushData(dateTime[0])
 
         var mainPushListAdapter =  MainPushListViewAdapter(pushItem)
         pushList.layoutManager = LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false)
@@ -72,6 +79,9 @@ class MainActivity : AppCompatActivity() {
 
             var dateSetListenr = DatePickerDialog.OnDateSetListener { datePicker, i, i2, i3 ->
                 dateTxt.text = "${i}-${i2+1}-${i3}"
+                var newAlarm = db.getPushData("${i}${i2}${i3}")
+                mainPushListAdapter.datas = newAlarm
+                mainPushListAdapter.notifyDataSetChanged()
             }
 
             var builder = DatePickerDialog(this,R.style.DialogTheme, dateSetListenr, year, mon, day)

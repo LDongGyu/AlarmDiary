@@ -44,9 +44,10 @@ class NotificationListener : NotificationListenerService() {
 
         var timeStemp = sbn?.postTime ?: 0
 
-        var timeFormat = SimpleDateFormat("HH:mm")
+        var timeFormat = SimpleDateFormat("YYYYMMDD HH:mm")
         var date = Date(timeStemp)
-        var time = timeFormat.format(date)
+        var dateStr = timeFormat.format(date)
+        var dateTime = dateStr.split(" ")
 
         val dbHelper = NotificationDbHelper(applicationContext)
         val db = dbHelper.writableDatabase
@@ -61,7 +62,8 @@ class NotificationListener : NotificationListenerService() {
         val values = ContentValues().apply {
             put(NotificationDbHelper.COLUMN_NAME_FROM,title)
             put(NotificationDbHelper.COLUMN_NAME_CONTEXT,text.toString())
-            put(NotificationDbHelper.COLUMN_NAME_TIME,time)
+            put(NotificationDbHelper.COLUMN_NAME_DATE,dateTime[0])
+            put(NotificationDbHelper.COLUMN_NAME_TIME,dateTime[1])
             put(NotificationDbHelper.COLUMN_NAME_APP,sbn?.packageName)
             put(NotificationDbHelper.COLUMN_NAME_ICON,bitmapdata)
         }
