@@ -22,6 +22,7 @@ import kotlinx.android.synthetic.main.activity_chart.dateTxt
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.drawer_layout.*
 import kotlinx.android.synthetic.main.toolbar_layout.*
+import java.text.SimpleDateFormat
 import java.util.*
 
 class ChartActivity : AppCompatActivity() {
@@ -69,6 +70,9 @@ class ChartActivity : AppCompatActivity() {
             finish()
         }
 
+        var dateFormat = SimpleDateFormat("YYYY-MM-dd")
+        dateTxt.text = dateFormat.format(Date())
+        
         val calender = findViewById(R.id.calenderImg) as ImageView
         calender.setOnClickListener {
             var c = Calendar.getInstance()

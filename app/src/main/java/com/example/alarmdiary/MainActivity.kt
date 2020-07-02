@@ -1,15 +1,18 @@
 package com.example.alarmdiary
 
+import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
 import androidx.core.app.NotificationManagerCompat
@@ -23,6 +26,8 @@ import com.example.alarmdiary.MainPushList.PushItem
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.drawer_layout.*
 import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
@@ -54,7 +59,7 @@ class MainActivity : AppCompatActivity() {
 
         var db = NotificationDbHelper(this)
 
-        var timeFormat = SimpleDateFormat("YYYYMMDD HH:mm")
+        var timeFormat = SimpleDateFormat("YYYYMMdd HH:mm")
         var date = Date()
         var dateStr = timeFormat.format(date)
         var dateTime = dateStr.split(" ")
@@ -70,6 +75,9 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
+
+        var dateFormat = SimpleDateFormat("YYYY-MM-dd")
+        dateTxt.text = dateFormat.format(Date())
 
         calenderImg.setOnClickListener {
             var c = Calendar.getInstance()

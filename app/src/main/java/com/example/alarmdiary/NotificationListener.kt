@@ -67,7 +67,7 @@ class NotificationListener : NotificationListenerService() {
             put(NotificationDbHelper.COLUMN_NAME_APP,sbn?.packageName)
             put(NotificationDbHelper.COLUMN_NAME_ICON,bitmapdata)
         }
-        if(!sbn?.packageName.equals("com.android.systemui")){
+        if(!sbn?.packageName.equals("com.android.systemui") && notification?.getLargeIcon() != null && notification?.smallIcon != null ){
             db?.insert(NotificationDbHelper.TABLE_NAME,null,values)
         }
         Log.d("PushLog","onNotificationPosted ~ " +
