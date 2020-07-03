@@ -44,7 +44,7 @@ class NotificationListener : NotificationListenerService() {
 
         var timeStemp = sbn?.postTime ?: 0
 
-        var timeFormat = SimpleDateFormat("YYYYMMDD HH:mm")
+        var timeFormat = SimpleDateFormat("YYYYMMdd HH:mm")
         var date = Date(timeStemp)
         var dateStr = timeFormat.format(date)
         var dateTime = dateStr.split(" ")
