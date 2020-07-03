@@ -95,8 +95,8 @@ class MainActivity : AppCompatActivity() {
 
                 var date = dateFormat.format(cal.time)
                 dateTxt.text = date
-
-                var newAlarm = db.getPushData(date)
+                var newDate = timeFormat.format(cal.time)
+                var newAlarm = db.getPushData(newDate.split(" ")[0])
                 newAlarm.reversed()
                 mainPushListAdapter.datas = newAlarm
                 mainPushListAdapter.notifyDataSetChanged()
