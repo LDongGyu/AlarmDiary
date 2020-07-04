@@ -28,6 +28,8 @@ import java.util.*
 class ChartActivity : AppCompatActivity() {
 
     lateinit var drawerLayout: DrawerLayout
+    var timeFormat = SimpleDateFormat("YYYYMMdd HH:mm")
+    var dateFormat = SimpleDateFormat("YYYY-MM-dd")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,7 +46,10 @@ class ChartActivity : AppCompatActivity() {
         drawerLayout = findViewById(R.id.drawer_layout)
 
         var db = NotificationDbHelper(this)
-        var rankItem = db.getRankData()
+
+        var date = Date()
+        var dateStr = timeFormat.format(date)
+        var rankItem = db.getRankData(dateStr.split(" ")[0])
 
         var rankAdapter = RankViewAdapter(rankItem)
         rankList.layoutManager = LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false)
@@ -70,7 +75,6 @@ class ChartActivity : AppCompatActivity() {
             finish()
         }
 
-        var dateFormat = SimpleDateFormat("YYYY-MM-dd")
         dateTxt.text = dateFormat.format(Date())
         
         val calender = findViewById(R.id.calenderImg) as ImageView
@@ -81,7 +85,31 @@ class ChartActivity : AppCompatActivity() {
             var day = c.get(Calendar.DAY_OF_MONTH)
 
             var dateSetListenr = DatePickerDialog.OnDateSetListener { datePicker, i, i2, i3 ->
-                dateTxt.text = "${i}-${i2+1}-${i3}"
+
+                var cal = Calendar.getInstance()
+                cal.set(Calendar.DAY_OF_YEAR,i)
+                cal.set(Calendar.DAY_OF_MONTH,i2+1)
+                cal.set(Calendar.DATE,i3)
+
+                dateTxt.text = dateFormat.format(cal.time)
+                var newDate = timeFormat.format(cal.time)
+                var newRank = db.getRankData(newDate.split(" ")[0])
+                rankAdapter.datas = newRank
+                rankAdapter.notifyDataSetChanged()
+
+                var data = mutableListOf<BarEntry>()
+                var label = mutableListOf<String>()
+                for(i in 0..newRank.size-1){
+                    var temp = BarEntry(newRank[i].count.toFloat(),i)
+                    data.add(i,temp)
+                    label.add(i,newRank[i].name)
+                }
+
+                var dataSet = BarDataSet(data,"Label")
+                dataSet.setColors(ColorTemplate.COLORFUL_COLORS)
+                var barData = BarData(label,dataSet)
+                barChart.data = barData
+                barChart.invalidate()
             }
 
             var builder = DatePickerDialog(this, R.style.DialogTheme, dateSetListenr, year, mon, day)

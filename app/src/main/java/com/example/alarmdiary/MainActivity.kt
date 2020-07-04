@@ -34,6 +34,8 @@ import java.util.*
 class MainActivity : AppCompatActivity() {
 
     lateinit var drawerLayout:DrawerLayout
+    var timeFormat = SimpleDateFormat("YYYYMMdd HH:mm")
+    var dateFormat = SimpleDateFormat("YYYY-MM-dd")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,7 +62,6 @@ class MainActivity : AppCompatActivity() {
 
         var db = NotificationDbHelper(this)
 
-        var timeFormat = SimpleDateFormat("YYYYMMdd HH:mm")
         var date = Date()
         var dateStr = timeFormat.format(date)
         var dateTime = dateStr.split(" ")
@@ -77,7 +78,6 @@ class MainActivity : AppCompatActivity() {
             finish()
         }
 
-        var dateFormat = SimpleDateFormat("YYYY-MM-dd")
         dateTxt.text = dateFormat.format(Date())
 
         calenderImg.setOnClickListener {
@@ -93,8 +93,7 @@ class MainActivity : AppCompatActivity() {
                 cal.set(Calendar.DAY_OF_MONTH,i2+1)
                 cal.set(Calendar.DATE,i3)
 
-                var date = dateFormat.format(cal.time)
-                dateTxt.text = date
+                dateTxt.text = dateFormat.format(cal.time)
                 var newDate = timeFormat.format(cal.time)
                 var newAlarm = db.getPushData(newDate.split(" ")[0])
                 newAlarm.reversed()

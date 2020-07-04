@@ -70,9 +70,9 @@ class NotificationDbHelper (context: Context) : SQLiteOpenHelper(context, DATABA
         return notiList
     }
 
-    fun getRankData(): List<RankItem>{
+    fun getRankData(date: String): List<RankItem>{
         val rankList = ArrayList<RankItem>()
-        val selectQueryHandler = "SELECT $COLUMN_NAME_FROM, COUNT($COLUMN_NAME_CONTEXT) as Count, $COLUMN_NAME_ICON FROM $TABLE_NAME GROUP BY $COLUMN_NAME_FROM ORDER BY COUNT($COLUMN_NAME_CONTEXT) DESC"
+        val selectQueryHandler = "SELECT $COLUMN_NAME_FROM, COUNT($COLUMN_NAME_CONTEXT) as Count, $COLUMN_NAME_ICON FROM $TABLE_NAME WHERE ${COLUMN_NAME_DATE} = ${date} GROUP BY $COLUMN_NAME_FROM ORDER BY COUNT($COLUMN_NAME_CONTEXT) DESC"
         val db = this.writableDatabase
         val cursor = db.rawQuery(selectQueryHandler,null)
 
