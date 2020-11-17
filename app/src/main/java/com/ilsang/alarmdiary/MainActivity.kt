@@ -1,34 +1,23 @@
-package com.example.alarmdiary
+package com.ilsang.alarmdiary
 
-import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.content.Intent
-import android.database.Cursor
-import android.database.sqlite.SQLiteDatabase
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import android.widget.Toast
-import androidx.annotation.RequiresApi
-import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.alarmdiary.DataBase.NotificationDbHelper
-import com.example.alarmdiary.MainCategory.MainCategoryAdapter
-import com.example.alarmdiary.MainPushList.MainPushListViewAdapter
-import com.example.alarmdiary.MainPushList.PushItem
+import com.ilsang.alarmdiary.DataBase.NotificationDbHelper
+import com.ilsang.alarmdiary.MainCategory.MainCategoryAdapter
+import com.ilsang.alarmdiary.MainPushList.MainPushListViewAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.drawer_layout.*
 import java.text.SimpleDateFormat
-import java.time.LocalDate
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 import java.util.*
 
 class MainActivity : AppCompatActivity() {

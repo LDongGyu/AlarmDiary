@@ -1,10 +1,10 @@
-package com.example.alarmdiary.MainPushList
+package com.ilsang.alarmdiary.MainPushList
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.alarmdiary.R
+import com.ilsang.alarmdiary.R
 
 class MainPushListViewAdapter(var datas: List<PushItem>) : RecyclerView.Adapter<MainPushListViewHolder>(){
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainPushListViewHolder {

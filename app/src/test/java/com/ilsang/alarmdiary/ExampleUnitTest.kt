@@ -1,4 +1,4 @@
-package com.example.alarmdiary
+package com.ilsang.alarmdiary
 
 import org.junit.Test
 

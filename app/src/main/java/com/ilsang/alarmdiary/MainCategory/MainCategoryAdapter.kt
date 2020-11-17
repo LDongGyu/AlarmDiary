@@ -1,10 +1,10 @@
-package com.example.alarmdiary.MainCategory
+package com.ilsang.alarmdiary.MainCategory
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.alarmdiary.R
+import com.ilsang.alarmdiary.R
 
 class MainCategoryAdapter(var datas: List<String>) : RecyclerView.Adapter<MainCategoryViewHolder>(){
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainCategoryViewHolder {

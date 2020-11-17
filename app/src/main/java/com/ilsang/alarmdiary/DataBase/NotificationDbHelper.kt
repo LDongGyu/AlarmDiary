@@ -1,4 +1,4 @@
-package com.example.alarmdiary.DataBase
+package com.ilsang.alarmdiary.DataBase
 
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
@@ -6,8 +6,8 @@ import android.database.sqlite.SQLiteOpenHelper
 import android.graphics.BitmapFactory
 import android.graphics.drawable.Icon
 import android.provider.BaseColumns
-import com.example.alarmdiary.ChartRank.RankItem
-import com.example.alarmdiary.MainPushList.PushItem
+import com.ilsang.alarmdiary.ChartRank.RankItem
+import com.ilsang.alarmdiary.MainPushList.PushItem
 import java.io.ByteArrayInputStream
 
 class NotificationDbHelper (context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {

@@ -1,4 +1,4 @@
-package com.example.alarmdiary.DataBase
+package com.ilsang.alarmdiary.DataBase
 
 data class Notification(
     var title: String = "title",
