@@ -1,4 +1,4 @@
-package com.example.alarmdiary.ChartRank
+package com.ilsang.alarmdiary.ChartRank
 
 import android.graphics.drawable.Icon
 

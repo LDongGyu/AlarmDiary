@@ -1,4 +1,4 @@
-package com.example.alarmdiary
+package com.ilsang.alarmdiary
 
 import android.app.Notification
 import android.content.ContentValues
@@ -7,9 +7,7 @@ import android.graphics.drawable.*
 import android.os.Build
 import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
-import android.util.Log
-import android.widget.Toast
-import com.example.alarmdiary.DataBase.NotificationDbHelper
+import com.ilsang.alarmdiary.DataBase.NotificationDbHelper
 import java.io.ByteArrayOutputStream
 import java.text.SimpleDateFormat
 import java.util.*

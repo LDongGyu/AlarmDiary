@@ -1,4 +1,4 @@
-package com.example.alarmdiary
+package com.ilsang.alarmdiary
 
 import android.app.DatePickerDialog
 import android.content.Intent
@@ -10,16 +10,14 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.alarmdiary.ChartRank.RankItem
-import com.example.alarmdiary.ChartRank.RankViewAdapter
-import com.example.alarmdiary.DataBase.NotificationDbHelper
+import com.ilsang.alarmdiary.ChartRank.RankViewAdapter
+import com.ilsang.alarmdiary.DataBase.NotificationDbHelper
 import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.utils.ColorTemplate
 import kotlinx.android.synthetic.main.activity_chart.*
 import kotlinx.android.synthetic.main.activity_chart.dateTxt
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.drawer_layout.*
 import kotlinx.android.synthetic.main.toolbar_layout.*
 import java.text.SimpleDateFormat

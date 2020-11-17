@@ -1,4 +1,4 @@
-package com.example.alarmdiary.MainPushList
+package com.ilsang.alarmdiary.MainPushList
 
 import android.graphics.drawable.Icon
 

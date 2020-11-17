@@ -1,10 +1,9 @@
-package com.example.alarmdiary.ChartRank
+package com.ilsang.alarmdiary.ChartRank
 
 import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.alarmdiary.R
-import kotlinx.android.synthetic.main.rank_item.view.*
+import com.ilsang.alarmdiary.R
 
 class RankViewHolder(item: View) : RecyclerView.ViewHolder(item){
     val rankText : TextView = item.findViewById(R.id.rankTxt)
